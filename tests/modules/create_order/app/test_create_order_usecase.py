@@ -5,6 +5,8 @@ from src.shared.domain.entities.order import Order
 from src.shared.infra.repositories.hackabeckas_repository_mock import HackabeckasRepositoryMock
 from src.modules.create_order.app.create_order_usecase import CreateOrderUsecase
 
+
+
 class Test_CreateOrderUsecase:
     def test_create_order_usecase(self):
         repo = HackabeckasRepositoryMock()
