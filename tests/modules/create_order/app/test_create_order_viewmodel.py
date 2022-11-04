@@ -7,4 +7,4 @@ class Test_CreateOrderViewModel:
         
         orderViewModel = CreateOrderViewModel(order=repo.orders[0]).to_dict()
         
-        assert orderViewModel == {'hamburguer': {'flavor': 'BEEF'}, 'table': 1}
+        assert orderViewModel == {'hamburguer': {'flavor': 'BEEF'}, 'table': 1, 'message': 'the order has been created'}
