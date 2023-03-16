@@ -1,10 +1,5 @@
-from shared.domain.entities.order import Order
-from shared.domain.repositories.hackabeckas_repository_interface import IHackabeckasRepository
-
-
-class GetOrderUsecase:
-    def __init__(self, repo: IHackabeckasRepository):
+class GetOrderUsecase():
+    def __init__(self, repo):
         self.repo = repo
-
-    def get_order(self, order_id: str) -> Order:
-        return self.repo.get_order(order_id)
+    def __call__(self, id_order:int):
+        return self.repo.get_order(id_order=id_order)

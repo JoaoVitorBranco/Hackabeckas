@@ -37,5 +37,9 @@ class HackabeckasRepositoryMock(IHackabeckasRepository):
         
         return order
     
-    # def get_order(self, ) -> Order:
-        
+    def get_order(self, id_order: int) -> Order:
+        for order in self.orders:
+            if order.id_order == id_order:
+                return order
+            
+        return None
