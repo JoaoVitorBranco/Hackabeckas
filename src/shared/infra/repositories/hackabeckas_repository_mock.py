@@ -11,25 +11,31 @@ class HackabeckasRepositoryMock(IHackabeckasRepository):
         self.orders = [
             Order(
                 hamburguer=Hamburguer(flavor=FLAVOR.BEEF),
-                table=1
+                table=1,
+                id_order=0
                 ),
             Order(
                 hamburguer=Hamburguer(flavor=FLAVOR.CHICKEN),
-                table=231231231
+                table=231231231,
+                id_order=1
                 ),
             Order(
                 hamburguer=Hamburguer(flavor=FLAVOR.PORK),
-                table=3
+                table=3,
+                id_order=2
             ),
             Order(
                 hamburguer=Hamburguer(flavor=FLAVOR.PORK),
-                table=3
+                table=3,
+                id_order=3
             )
         ]
         
     def create_order(self, table:int, flavor: FLAVOR) -> Order:
-        order = Order(table=table, hamburguer=Hamburguer(flavor=flavor))
-        self.orders.append(Order(table=table, hamburguer=Hamburguer(flavor=flavor)))
+        order = Order(table=table, hamburguer=Hamburguer(flavor=flavor), id_order=len(self.orders))
+        self.orders.append(order)
         
         return order
     
+    # def get_order(self, ) -> Order:
+        

@@ -23,6 +23,7 @@ class CreateOrderViewModel:
     def to_dict(self) -> dict:
         return {
             "table": self.order.table,
+            "id_order": self.order.id_order,
             "hamburguer": HamburguerViewModel(self.order.hamburguer).to_dict(),
             "message": "the order has been created"
         }

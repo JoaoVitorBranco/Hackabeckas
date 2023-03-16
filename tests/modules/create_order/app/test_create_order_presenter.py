@@ -57,6 +57,7 @@ class Test_CreateOrderPresenter:
             "hamburguer":{
                 "flavor": "CHICKEN"
             },
+            "id_order": 4,
             
             "message": "the order has been created"
         }

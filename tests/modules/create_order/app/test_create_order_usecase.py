@@ -19,6 +19,7 @@ class Test_CreateOrderUsecase:
         assert len(repo.orders) == lenBefore + 1
         assert order.table == 4
         assert order.hamburguer.flavor == FLAVOR.CHICKEN 
+        assert order.id_order == 4
         
 
 
