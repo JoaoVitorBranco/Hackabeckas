@@ -1,5 +1,4 @@
-from fastapi import FastAPI, Request
-from pydantic import BaseModel
+from fastapi import FastAPI
 from src.modules.create_order.app.create_order_presenter import create_order_presenter
 from src.modules.get_order.get_order_presenter import get_order_presenter
 
