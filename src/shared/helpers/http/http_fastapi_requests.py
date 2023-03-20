@@ -1,3 +1,4 @@
+import json
 from src.shared.helpers.http.http_models import HttpRequest, HttpResponse
 
 
@@ -7,12 +8,12 @@ class FastAPIHttpRequest(HttpRequest):
     query_params: dict
     
     def __init__(self, data: dict = None) -> None:
-        _headers = data.get("headers", None)
-        _query_params = data.get("query_params", None)
-        _body = data.get("body", None)
 
-
-        super().__init__(body=_body, headers=_headers, query_params=_query_params)
+        super().__init__(
+            body=data.get("headers", None),
+            headers=data.get("query_params", None),
+            query_params=data.get("body", None)
+        )
 
 
 class FastAPIHttpResponse(HttpResponse):
@@ -31,6 +32,6 @@ class FastAPIHttpResponse(HttpResponse):
     def to_dict(self) -> dict:
         return {
             "status_code": self.status_code,
-            "body": self.body,
+            "body": json.dumps(self.body),
             "headers": self.headers,
         }

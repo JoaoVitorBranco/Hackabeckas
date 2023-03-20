@@ -12,16 +12,16 @@ class GetOrderController:
         
     def __call__(self, request: HttpRequest) -> HttpResponse:
         try:
-            if request.query_params.get('id_order') is None:
+            if request.data.get('id_order') is None:
                 raise MissingParameters('id_order')
                 
-            if type(request.query_params.get('id_order')) != str:
+            if type(request.data.get('id_order')) != str:
                 raise EntityError('id_order')
             
-            if not request.query_params["id_order"].isdecimal():
+            if not request.data["id_order"].isdecimal():
                 raise EntityError("id_order")
 
-            order = self.getOrderUsecase(id_order=int(request.query_params["id_order"]))
+            order = self.getOrderUsecase(id_order=int(request.data["id_order"]))
             viewmodel = GetOrderViewModel(order=order)
             
             return OK(viewmodel.to_dict())

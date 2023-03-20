@@ -3,7 +3,7 @@ from .get_order_usecase import GetOrderUsecase
 from .get_order_controller import GetOrderController
 from src.shared.infra.repositories.hackabeckas_repository_mock import HackabeckasRepositoryMock
 
-def lambda_handler(event, context):
+def get_order_presenter(event, context):
     repo = HackabeckasRepositoryMock()
     usecase = GetOrderUsecase(repo)
     controller = GetOrderController(usecase)

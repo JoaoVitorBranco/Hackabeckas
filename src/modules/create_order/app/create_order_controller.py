@@ -11,23 +11,23 @@ class CreateOrderController:
         
     def __call__(self, request: HttpRequest) -> HttpResponse:
         try:
-            if request.body.get('table') is None:
+            if request.data.get('table') is None:
                 raise MissingParameters('table')
                 
-            if request.body.get('flavor') is None:
+            if request.data.get('flavor') is None:
                 raise MissingParameters('flavor')
             
-            if not request.body["table"].isdecimal():
+            if not request.data["table"].isdecimal():
                 raise EntityError("table")
 
             flavors = list()
             for flavor in FLAVOR:
                 flavors.append(flavor.value)
                 
-            if request.body["flavor"] not in flavors:
+            if request.data["flavor"] not in flavors:
                 raise EntityError("flavor")
 
-            order = self.createOrderUsecase(flavor=FLAVOR[request.body["flavor"]], table=int(request.body["table"]))
+            order = self.createOrderUsecase(flavor=FLAVOR[request.data["flavor"]], table=int(request.data["table"]))
             viewmodel = CreateOrderViewModel(order=order)
             
             return Created(viewmodel.to_dict())

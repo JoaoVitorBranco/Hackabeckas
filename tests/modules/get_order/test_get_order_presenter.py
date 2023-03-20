@@ -1,5 +1,5 @@
 import json
-from src.modules.get_order.get_order_presenter import lambda_handler
+from src.modules.get_order.get_order_presenter import get_order_presenter
 import pytest
 
 class Test_GetOrderPresenter:
@@ -9,15 +9,15 @@ class Test_GetOrderPresenter:
                 "header1": "value1",
                 "header2": "value1,value2"
             },
-            "body": None,
+            "body": {},
             "query_params":{"id_order":"0"}
         }
         
         expected = {'hamburguer': {'flavor': 'BEEF'}, 'table': 1, 'id_order': 0,'message': 'the order has been retrieved'}
         
-        response = lambda_handler(event, None)
+        response = get_order_presenter(event, None)
         
+        assert json.loads(response["body"]) == expected
         assert response["status_code"] == 200
-        assert response["body"] == expected
         
    

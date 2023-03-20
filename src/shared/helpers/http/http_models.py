@@ -1,4 +1,5 @@
 from typing import Any
+from warnings import warn
 
 from src.shared.helpers.enum.http_status_code_enum import HttpStatusCodeEnum
 
@@ -8,15 +9,36 @@ class HttpRequest:
     headers: dict
     query_params: dict
 
-    def __init__(self, body: dict = None, headers: dict = None, query_params: dict = None):
-        self.body = body
-        self.headers = headers
-        self.query_params = query_params
+    def __init__(self, body: dict = {}, headers: dict = {}, query_params: dict = {}):
+        self.body = body or {}
+        self.headers = headers or {}
+        self.query_params = query_params or {}
+        data_dict = {}
+
+        # check overlapping keys
+        if type(body) is dict:
+            data_dict.update(body)
+            if [key for key in self.body.keys() if key in self.query_params.keys()] or [key for key in self.body.keys()
+                                                                                        if key in self.headers.keys()]:
+                warn(
+                    f"body, query_params and/or headers have overlapping keys → {[key for key in self.body.keys() if key in self.query_params.keys()] or [key for key in self.body.keys() if key in self.headers.keys()]}")
+        else:
+            if [key for key in self.query_params.keys() if key in self.headers.keys()]:
+                warn(
+                    f"query_params and headers have overlapping keys → {[key for key in self.query_params.keys() if key in self.headers.keys()]}")
+
+        if type(body) is str:
+            data_dict.update({"body": body})
+
+        data_dict.update(self.headers)
+        data_dict.update(self.query_params)
+        self.data = data_dict
 
     def __repr__(self):
         return (
-            f"HttpRequest (body={self.body}, headers={self.headers}, query_params={self.query_params})"
+            f"HttpRequest (body={self.body}, headers={self.headers}, query_params={self.query_params}, data={self.data})"
         )
+
 
 
 class HttpResponse:
