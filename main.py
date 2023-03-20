@@ -6,7 +6,7 @@ from src.modules.get_order.get_order_presenter import get_order_presenter
 app = FastAPI()
 
 @app.get("/get_order/")
-def get_order(id_order:int = None):
+def get_order(id_order = None):
     request = {
         "body":{},
         "headers": {},
@@ -20,7 +20,9 @@ def get_order(id_order:int = None):
 @app.post("/create_order/")
 def create_order(data: dict = None):
     event = {
-        "body":data
+        "body":{
+            k:str(v) for k,v in data.items()
+        }
     }
     
     response = create_order_presenter(event, None)

@@ -20,4 +20,18 @@ class Test_GetOrderPresenter:
         assert json.loads(response["body"]) == expected
         assert response["status_code"] == 200
         
-   
+    def test_get_order_presenter_not_found(self):
+        event = {
+            "headers": {
+                "header1": "value1",
+                "header2": "value1,value2"
+            },
+            "body": {},
+            "query_params":{"id_order":"4"}
+        }
+        
+        
+        response = get_order_presenter(event, None)
+        
+        assert response["status_code"] == 404
+        assert response["message"] == "the order has not been found"
